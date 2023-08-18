@@ -1,20 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, ImageBackground, View } from 'react-native';
+import PrimaryButton from './src/components/PrimaryButton';
+import StartGameScreen from './src/screens/StartGameScreen';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    return (
+        <LinearGradient
+            colors={['#3e0329', '#ddb52f']}
+            style={styles.rootScreen}>
+            <ImageBackground
+                source={require('./src/assets/ryunosuke-kikuno-UsocPeObI3Y-unsplash.jpg')}
+                resizeMode="cover"
+                style={styles.rootScreen}
+                imageStyle={styles.imageStyle}>
+                <StartGameScreen />
+            </ImageBackground>
+            <StatusBar style="light" />
+        </LinearGradient>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    rootScreen: {
+        flex: 1,
+    },
+    imageStyle: { opacity: 0.6 },
 });
