@@ -1,8 +1,11 @@
 import { StyleSheet, Text, View, TextInput, Alert } from 'react-native';
 import React, { useState } from 'react';
-import PrimaryButton from '../components/PrimaryButton';
+import PrimaryButton from '../components/ui/PrimaryButton';
 
-const StartGameScreen = () => {
+interface Props {
+    pickedNumber: (pickedNumber: number) => void;
+}
+const StartGameScreen = ({ pickedNumber }: Props) => {
     const [input, setInput] = useState('');
 
     const onPressResetHandler = () => {
@@ -28,8 +31,9 @@ const StartGameScreen = () => {
                     },
                 ]
             );
+        } else {
+            pickedNumber(choseNumber);
         }
-
         console.log('Valid number!');
     };
     return (
