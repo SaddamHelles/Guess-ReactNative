@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, TextInput, Alert } from 'react-native';
 import React, { useState } from 'react';
 import PrimaryButton from '../components/ui/PrimaryButton';
+import Title from '../components/ui/Title';
 
 interface Props {
     pickedNumber: (pickedNumber: number) => void;
@@ -37,23 +38,29 @@ const StartGameScreen = ({ pickedNumber }: Props) => {
         console.log('Valid number!');
     };
     return (
-        <View style={styles.inputContainer}>
-            <TextInput
-                value={input}
-                style={styles.numberInput}
-                onChangeText={setInput}
-                maxLength={2}
-                keyboardType="number-pad"
-                autoCapitalize="none"
-                autoCorrect={false}
-            />
-            <View style={styles.actionContainer}>
-                <PrimaryButton onPress={onPressResetHandler}>
-                    Reset
-                </PrimaryButton>
-                <PrimaryButton onPress={onPressConfirmHandler}>
-                    Confirm
-                </PrimaryButton>
+        <View style={styles.rootContainer}>
+            <View style={styles.inputContainer}>
+                <Text style={styles.innerTitle}>Enter a Number</Text>
+                <TextInput
+                    value={input}
+                    style={styles.numberInput}
+                    onChangeText={setInput}
+                    maxLength={2}
+                    keyboardType="number-pad"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                />
+                <View style={styles.actionContainer}>
+                    <PrimaryButton onPress={onPressResetHandler}>
+                        Reset
+                    </PrimaryButton>
+                    <PrimaryButton onPress={onPressConfirmHandler}>
+                        Confirm
+                    </PrimaryButton>
+                </View>
+            </View>
+            <View style={styles.title}>
+                <Title>Guess My Number</Title>
             </View>
         </View>
     );
@@ -62,8 +69,14 @@ const StartGameScreen = ({ pickedNumber }: Props) => {
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
+    rootContainer: {
+        flex: 1,
+        // marginTop: 100,
+        position: 'relative',
+    },
+
     inputContainer: {
-        marginTop: 100,
+        marginTop: 36,
         marginHorizontal: 24,
         padding: 16,
         backgroundColor: '#bd00a2',
@@ -87,5 +100,19 @@ const styles = StyleSheet.create({
     },
     actionContainer: {
         flexDirection: 'row',
+    },
+    title: {
+        position: 'absolute',
+        bottom: 30,
+        marginHorizontal: 15,
+        right: 0,
+        left: 0,
+    },
+    innerTitle: {
+        fontFamily: 'open-sans-bold',
+        color: '#ddb52f',
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: '500',
     },
 });

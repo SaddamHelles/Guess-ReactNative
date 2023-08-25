@@ -23,9 +23,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     numberText: {
-        color: Colors.accent500,
+        color: 'white',
         textAlign: 'center',
-        fontWeight: 'bold',
+        fontFamily: 'open-sans-bold',
         fontSize: 36,
     },
 });
