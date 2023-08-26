@@ -1,4 +1,13 @@
-import { StyleSheet, Text, View, TextInput, Alert } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    Alert,
+    KeyboardAvoidingView,
+    useWindowDimensions,
+    ScrollView,
+} from 'react-native';
 import React, { useState } from 'react';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Title from '../components/ui/Title';
@@ -8,7 +17,8 @@ interface Props {
 }
 const StartGameScreen = ({ pickedNumber }: Props) => {
     const [input, setInput] = useState('');
-
+    const { height, width } = useWindowDimensions();
+    console.log('height: ', height);
     const onPressResetHandler = () => {
         setInput('');
     };
@@ -37,42 +47,53 @@ const StartGameScreen = ({ pickedNumber }: Props) => {
         }
         console.log('Valid number!');
     };
+    const displayTitle = height < 400 ? 'none' : 'flex';
     return (
-        <View style={styles.rootContainer}>
-            <View style={styles.inputContainer}>
-                <Text style={styles.innerTitle}>Enter a Number</Text>
-                <TextInput
-                    value={input}
-                    style={styles.numberInput}
-                    onChangeText={setInput}
-                    maxLength={2}
-                    keyboardType="number-pad"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                />
-                <View style={styles.actionContainer}>
-                    <PrimaryButton onPress={onPressResetHandler}>
-                        Reset
-                    </PrimaryButton>
-                    <PrimaryButton onPress={onPressConfirmHandler}>
-                        Confirm
-                    </PrimaryButton>
+        <ScrollView style={styles.screen}>
+            <KeyboardAvoidingView style={styles.screen} behavior="position">
+                <View
+                    style={[
+                        styles.rootContainer,
+                        { marginTop: height < 680 ? 30 : 80 },
+                    ]}>
+                    <View style={styles.title}>
+                        <Title>Guess My Number</Title>
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Text style={styles.innerTitle}>Enter a Number</Text>
+                        <TextInput
+                            value={input}
+                            style={styles.numberInput}
+                            onChangeText={setInput}
+                            maxLength={2}
+                            keyboardType="number-pad"
+                            autoCapitalize="none"
+                            autoCorrect={false}
+                        />
+                        <View style={styles.actionContainer}>
+                            <PrimaryButton onPress={onPressResetHandler}>
+                                Reset
+                            </PrimaryButton>
+                            <PrimaryButton onPress={onPressConfirmHandler}>
+                                Confirm
+                            </PrimaryButton>
+                        </View>
+                    </View>
                 </View>
-            </View>
-            <View style={styles.title}>
-                <Title>Guess My Number</Title>
-            </View>
-        </View>
+            </KeyboardAvoidingView>
+        </ScrollView>
     );
 };
 
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        // position: 'relative',
+    },
     rootContainer: {
         flex: 1,
-        // marginTop: 100,
-        position: 'relative',
     },
 
     inputContainer: {
@@ -102,11 +123,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     title: {
-        position: 'absolute',
-        bottom: 30,
         marginHorizontal: 15,
-        right: 0,
-        left: 0,
+        // position: 'absolute',
+        // right: 0,
+        // left: 0,
     },
     innerTitle: {
         fontFamily: 'open-sans-bold',
